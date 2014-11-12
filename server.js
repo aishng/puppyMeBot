@@ -3,7 +3,8 @@ app 		= express(),
 http		= require('http'),
 getPuppies	= require('./getPuppies'),
 zulip 		= require('zulip-node'),
-client		= new zulip(process.env.ZULIP_EMAIL, process.env.ZULIP_API_KEY)
+streams 	= require('./streams.js'),
+client		= new zulip(process.env.ZULIP_EMAIL, process.env.ZULIP_API_KEY);
 
 app.server = http.Server(app);
 
@@ -13,6 +14,9 @@ client.registerQueue({
 
 client.on('registered', function() {
   console.log('registered');
+  client.updateSubscriptions(streams, function() {
+  	console.log('streams updated');
+  })
 })
 .on('message', function(msg) {
   if (msg.sender_email !== process.env.ZULIP_EMAIL)
@@ -21,6 +25,7 @@ client.on('registered', function() {
 .on('error', function(err) {
   console.error(err);
 });
+
 
 function handleMsg(msg) {
   var content = msg.content,

@@ -35,7 +35,9 @@ function handleMsg(msg) {
   type = msg.type,
   opts = {};
 
-	if (content === ':dog:' || ':dog2:' || ':doge:' ) {   		
+	if (content.indexOf(':dog:') > -1 || 
+		content.indexOf(':dog2:') > -1 || 
+		content.indexOf(':doge:') > -1 ) {   		
 		getPuppies(function(puppy) {
 			if (type === 'private') {
 			    client.sendPrivateMessage({

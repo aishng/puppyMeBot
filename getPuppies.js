@@ -6,13 +6,13 @@ module.exports = function getPuppies(callback) {
 	var options = {
 		host: 'api.giphy.com',
 		port: 443,
-		path: '/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cute+puppies',
+		path: 'v1/gifs/translate?s=cute+puppies&api_key=dc6zaTOxFJmzC',
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
 		}
 	};
-	
+
 	var request = https.request(options, function(res){
 		var dataChunks = [];
 		res.on('data', function(chunk){
